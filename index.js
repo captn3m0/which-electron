@@ -6,16 +6,14 @@ const zip = require("./zip");
 // Input file comes from process.argv[2]
 const FILENAME = process.argv[2];
 
+console.log(FILENAME)
+
 zip.listFileContents(FILENAME, (entries)=> {
   let asar = finder.asar(entries);
   let binary = finder.binary(entries);
   let versionFiles = finder.version(entries);
   let enm = finder.findElectronPackageInsideNodeModules(entries);
-  // if (asar.length > 0) {
-  //   asar.forEach((a) => {
-  //     console.log(`${process.argv[2]}:${a}`);
-  //   });
-  // }
+
   // if (binary) {
   //   console.log(`${process.argv[2]}:${binary}`);
   // }
@@ -24,9 +22,19 @@ zip.listFileContents(FILENAME, (entries)=> {
       zip.readFileContents(FILENAME, f, (c)=>console.log(c))
     });
   }
-  // if (enm) {
-  //   enm.forEach((a) => {
-  //     zip.readFileContents(FILENAME, a, (c)=>console.log(c))
-  //   });
-  // }
+  if (asar.length > 0) {
+    asar.forEach((a) => {
+      console.log("<v7.0.0")
+    });
+  }
+  if (enm) {
+    enm.forEach((a) => {
+      zip.readFileContents(FILENAME, a, (c)=>{
+        try {
+          let packageData = JSON.parse(c)
+          console.log(packageData['version'])
+        }catch(e){}
+      })
+    });
+  }
 });

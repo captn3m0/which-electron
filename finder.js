@@ -9,8 +9,7 @@ module.exports = {
       .filter((e) => {
         return (
           isDirectory(e.attributes) == false &&
-          path.extname(e.file) == ".asar" &&
-          path.basename(e.file) != "app.asar"
+          path.basename(e.file) == "electron.asar"
         );
       })
       .map((e) => e.file);
