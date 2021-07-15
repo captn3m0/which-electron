@@ -1,0 +1,32 @@
+{
+  "name": "which-electron",
+  "version": "1.0.0",
+  "description": "Guess which electron version is bundled in an application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/captn3m0/which-electron.git"
+  },
+  "keywords": [
+    "find",
+    "electron",
+    "version",
+    "electron",
+    "audit"
+  ],
+  "author": "Nemo <npm@captnemo.in>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/captn3m0/which-electron/issues"
+  },
+  "homepage": "https://github.com/captn3m0/which-electron#readme",
+  "dependencies": {
+    "asar": "^3.0.3",
+    "elfinfo": "*",
+    "node-7z": "^3.0.0",
+    "node-stream-zip": "^1.13.6"
+  }
+}
