@@ -5,7 +5,7 @@ const isDirectory = require('./utils').isDirectory;
 module.exports = {
   // Finds the electron asar file, if we can
   asar: function(entries) {
-    return Object.values(entries)
+    return entries
       .filter((e) => {
         return (
           isDirectory(e.attributes) == false &&
