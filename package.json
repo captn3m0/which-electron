@@ -7,7 +7,7 @@
     "which-electron": "index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "kuta tests/*.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +32,8 @@
     "elfinfo": "*",
     "macho": "^1.4.0",
     "node-7z": "^3.0.0"
+  },
+  "devDependencies": {
+    "kuta": "*"
   }
 }
