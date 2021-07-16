@@ -1,13 +1,28 @@
-# which-electron
+# which-electron ![](https://img.shields.io/badge/Status-WIP-orange)
 
-Try to find out which Electron version is bundled in an application file.
+Try to find out which Electron version is bundled inside an application.
 
-## how
+## Usage
 
-The script attempts to extract the `app.asar` file and get the electron version from the manifest there.
+```shell
+npm install which-electron
+which-electron Google.Play.Music.Desktop.Player.OSX.zip
+which-electron Google.Play.Music.Desktop.Player.OSX.dmg
+which-electron Google.Play.Music.Desktop.Player.deb
+```
 
-## supported files
+## How does it work?
 
-Currently supports:
+We attempt multiple pathways:
 
-1. Zip Files
+1. The presence of a `electron.asar` file denotes an electron version `<v7.0.0`, since later releases dropped that file and embedded it in the binary instead.
+2. A `version` text file is sometimes included in the final binary.
+3. The `node_modules/electron/package.json` file is sometimes present.
+4. A lookup table of [hashes from various electron releases](https://github.com/captn3m0/electron-fingerprints/) is used to guess the version. (WIP)
+5. Get the electron version from the electron binary (WIP)
+
+Note that this can be run against untrusted binaries as it does not _try to run the application_.
+
+## License
+
+Licensed under the [MIT License](https://nemo.mit-license.org/). See LICENSE file for details.
