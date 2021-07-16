@@ -47,4 +47,25 @@ module.exports = {
       })
       .map((e) => e.file);
   },
+
+  // Return a list of files that might be worth fingerprinting
+  fingerprintable: function(entries) {
+    return entries.filter((e) =>{
+      if (isDirectory(e.attributes)) {
+        return false;
+      }
+      let ext = path.extname(e.file);
+      if (['.h', '.dll', '.bin', '.asar', '.dylib', '.so', '.exe'].indexOf(ext) !== -1) {
+        return true
+      }
+      let b = path.basename(e.file);
+
+      if (['electron framework', 'squirrel', 'electron', 'electron helper', 'chrome_100_percent', 'chrome_200_percent'].indexOf(b)!== -1) {
+        return true;
+      }
+
+      return false;
+    })
+    .map((e)=>e.file)
+  }
 };
