@@ -23,8 +23,11 @@ zip.listFileContents(FILENAME, (entries) => {
   let osguess1 = osguess.guessFromFilename(FILENAME);
   let osguess2 = osguess.guessFromContents(entries);
 
-  if (osguess1 !== osguess2 && osguess1!==null) {
+  if (osguess1 !== osguess2 && osguess1 && osguess2) {
     console.log(`Unsure about operating system. Going with ${osguess2}. Other option was ${osguess1}`);
+  }
+  if (osguess1 && !osguess2) {
+    osguess2 = osguess1
   }
   let arch = osguess.guessArch(FILENAME, entries);
   let asar = finder.asar(entries);
@@ -54,8 +57,8 @@ zip.listFileContents(FILENAME, (entries) => {
   if (versionFiles.length > 0) {
     versionFiles.map((f) => {
       zip.readFileContents(FILENAME, f, (c) => {
-        console.log("Found Version file: v" + c);
-        logSupport(`v${c}`)
+        console.log("Found Version file: " + c);
+        logSupport(`${c}`)
       });
     });
   }

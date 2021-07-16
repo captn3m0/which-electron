@@ -23,6 +23,7 @@ test('it should windows correctly from filename', ()=> {
   assert.deepEqual('win32', os.guessFromFilename('particl-desktop-2.3.6-win-ia32.zip'))
   assert.deepEqual('win32', os.guessFromFilename('Multrin-1.3.0-ia32-win.zip'))
   assert.deepEqual('win32', os.guessFromFilename('Multrin-1.3.0-ia32-win.exe'))
+  assert.deepEqual('win32', os.guessFromFilename('Assessment.Disaggregation-1.1.4.Setup.exe'))
 });
 
 test('it should guess correctly from file list', ()=> {

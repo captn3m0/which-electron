@@ -14,12 +14,10 @@ module.exports = {
 		} else if (fn.match(/win/)) {
 			return 'win32'
 		} else {
-			ext = path.extname(inputFile)
-			if (ext.match(/dmg/)) {
-				return 'darwin'
-			} else if (ext.match('/exe/')) {
-				return 'win32'
-			} else if (ext.match(/deb/) ||ext.match(/appimage/i) || ext.match(/pacman/)) {
+			let ext = path.extname(inputFile).toLowerCase()
+      if (ext == '.dmg') {return 'darwin'}
+      if (ext == '.exe') {return 'win32'}
+      if (['.deb', '.appimage', '.pacman'].indexOf(ext) !== -1) {
         return 'linux'
       }
 		}
