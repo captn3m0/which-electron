@@ -40,6 +40,7 @@ Note that this can be run against untrusted binaries as it does not _try to run 
 It is known to not work against:
 
 1. Windows setup files (ones with `-setup` in their name)
+2. Breaks with newer AppImage and deb files
 
 ## License
 
