@@ -1,4 +1,4 @@
-# which-electron ![](https://img.shields.io/badge/Status-WIP-orange)
+# which-electron ![](https://img.shields.io/badge/Status-Beta-orange) ![npm](https://img.shields.io/npm/v/which-electron) ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/which-electron) ![NPM](https://img.shields.io/npm/l/which-electron)
 
 Try to find out which Electron version is bundled inside an application.
 
