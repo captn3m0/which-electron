@@ -33,7 +33,9 @@ zip.listFileContents(FILENAME, (entries)=> {
         try {
           let packageData = JSON.parse(c)
           console.log(packageData['version'])
-        }catch(e){}
+        }catch(e){
+          // TODO: Do something
+        }
       })
     });
   }
