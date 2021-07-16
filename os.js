@@ -25,6 +25,9 @@ module.exports = {
 		}
 		return null;
 	},
+  guessArch(filename, entries) {
+    return 'x64';
+  },
 	guessFromContents(entries) {
 		for (i in entries) {
       let entry = entries[i]

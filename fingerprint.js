@@ -1,18 +1,18 @@
 const DB = require("electron-fingerprints");
 const fs = require("fs");
-const hasha = require('hasha');
-const allVersions = require('./versions')['all']
+const hasha = require("hasha");
+const allVersions = require("./versions")["all"];
 
 function checksumFile(algorithm, path) {
-  return new Promise(function (resolve, reject) {
-    let fs = require('fs');
-    let crypto = require('crypto');
+  return new Promise(function(resolve, reject) {
+    let fs = require("fs");
+    let crypto = require("crypto");
 
-    let hash = crypto.createHash(algorithm).setEncoding('hex');
+    let hash = crypto.createHash(algorithm).setEncoding("hex");
     fs.createReadStream(path)
-      .once('error', reject)
+      .once("error", reject)
       .pipe(hash)
-      .once('finish', function () {
+      .once("finish", function() {
         resolve(hash.read());
       });
   });
@@ -37,14 +37,18 @@ module.exports = {
       }
     }
 
-    return possibleVersions;
+    if (possibleVersions == allVersions) {
+      return [];
+    } else {
+      return possibleVersions;
+    }
   },
 
   getHashes: function(dir) {
     let list = fs.readdirSync(dir);
     return list.map((f) => {
       let fn = `${dir}/${f}`;
-      return hasha.fromFileSync(fn, {algorithm: 'sha1'})
-    })
+      return hasha.fromFileSync(fn, { algorithm: "sha1" });
+    });
   },
 };

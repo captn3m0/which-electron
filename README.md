@@ -6,20 +6,21 @@ Try to find out which Electron version is bundled inside an application.
 
 ```shell
 $ npm install which-electron
+
 $ which-electron Google.Play.Music.Desktop.Player.OSX.zip
-Version Constraint: <v7.0.0
-Multiple guesses from fingerprinting:
-[
-  'v3.1.10', 'v3.1.11',
-  'v3.1.12', 'v3.1.13',
-  'v3.1.5',  'v3.1.6',
-  'v3.1.7',  'v3.1.8',
-  'v3.1.9'
-]
+Version Constraint (Unsupported): <v7.0.0
+Fingerprint: v3.1.7-v3.1.8
+v3.1.8 is currently not supported
 
 $ which-electron HashTag-win32-x64.zip
 Found Version file: v7.1.10
+v7.1.10 is currently not supported
 Fingerprint: v7.1.10
+v7.1.10 is currently not supported
+
+$ which-electron Appium-linux-1.21.0.AppImage
+Fingerprint: v7.2.4-v7.3.3
+v7.3.3 is currently not supported
 
 $ which-electron Google.Play.Music.Desktop.Player.deb
 ```

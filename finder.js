@@ -54,6 +54,9 @@ module.exports = {
       if (isDirectory(e.attributes)) {
         return false;
       }
+      if (!e.file) {
+        return false;
+      }
       let ext = path.extname(e.file);
       if (['.h', '.dll', '.bin', '.asar', '.dylib', '.so', '.exe'].indexOf(ext) !== -1) {
         return true
