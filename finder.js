@@ -15,8 +15,8 @@ module.exports = {
       .map((e) => e.file);
   },
   binary: function(entries) {
-    entries = Object.values(entries).sort((a, b) => b.size - a.size);
-    for (const entry of Object.values(entries)) {
+    entries = entries.sort((a, b) => b.size - a.size);
+    for (const entry of entries) {
       if (isDirectory(entry.attributes)) {
         continue;
       }
@@ -33,7 +33,7 @@ module.exports = {
   },
 
   version: function(entries) {
-    return Object.values(entries)
+    return entries
       .filter((e) => {
         return isDirectory(e.attributes) == false && path.basename(e.file) == "version";
       })
@@ -41,10 +41,10 @@ module.exports = {
   },
 
   findElectronPackageInsideNodeModules: function(entries) {
-    return Object.values(entries)
+    return entries
       .filter((e) => {
         return isDirectory(e.attributes) == false && e.file.match(/node_modules\/electron\/package\.json$/);
       })
       .map((e) => e.file);
-  }
+  },
 };
