@@ -4,7 +4,7 @@ const path = require('path')
 
 module.exports = {
 	guessFromFilename(inputFile) {
-		let fn = path.baseName(inputFile)
+		let fn = path.basename(inputFile)
 		if (fn.match(/linux/)) {
 			return 'linux'
 		} else if (fn.match(/mac/)) {
@@ -19,7 +19,9 @@ module.exports = {
 				return 'darwin'
 			} else if (ext.match('/exe/')) {
 				return 'win32'
-			}
+			} else if (ext.match(/deb/) ||ext.match(/appimage/i) || ext.match(/pacman/)) {
+        return 'linux'
+      }
 		}
 		return null;
 	},
