@@ -14,6 +14,15 @@ module.exports = {
       cb(fs.readFileSync(`/tmp/${fn}`, {encoding: 'utf8'}))
     });
   },
+  extractSomeFiles: function(archive, list, cb) {
+    let dir = fs.mkdtempSync('/tmp/which-electron')
+    let stream = Seven.extract(archive, dir, {
+      $cherryPick: list
+    })
+    stream.on('end', ()=>{
+      cb(dir)
+    })
+  },
   listFileContents: function(archive, cb) {
     let zip = Seven.list(archive);
     let entries = [];

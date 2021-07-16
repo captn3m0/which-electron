@@ -30,6 +30,7 @@
     "asar": "^3.0.3",
     "electron-fingerprints": "^1.0.0",
     "elfinfo": "*",
+    "hasha": "^5.2.2",
     "macho": "^1.4.0",
     "node-7z": "^3.0.0"
   },

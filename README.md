@@ -5,10 +5,23 @@ Try to find out which Electron version is bundled inside an application.
 ## Usage
 
 ```shell
-npm install which-electron
-which-electron Google.Play.Music.Desktop.Player.OSX.zip
-which-electron Google.Play.Music.Desktop.Player.OSX.dmg
-which-electron Google.Play.Music.Desktop.Player.deb
+$ npm install which-electron
+$ which-electron Google.Play.Music.Desktop.Player.OSX.zip
+Version Constraint: <v7.0.0
+Multiple guesses from fingerprinting:
+[
+  'v3.1.10', 'v3.1.11',
+  'v3.1.12', 'v3.1.13',
+  'v3.1.5',  'v3.1.6',
+  'v3.1.7',  'v3.1.8',
+  'v3.1.9'
+]
+
+$ which-electron HashTag-win32-x64.zip
+Found Version file: v7.1.10
+Fingerprint: v7.1.10
+
+$ which-electron Google.Play.Music.Desktop.Player.deb
 ```
 
 ## How does it work?
