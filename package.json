@@ -1,10 +1,10 @@
 {
   "name": "which-electron",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Guess which electron version is bundled in an application",
-  "main": "index.js",
+  "main": "src/index.js",
   "bin": {
-    "which-electron": "index.js"
+    "which-electron": "src/index.js"
   },
   "scripts": {
     "test": "kuta tests/*.js"

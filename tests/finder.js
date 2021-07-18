@@ -1,5 +1,5 @@
 const test = require("kuta").test;
-const finder = require("../finder");
+const finder = require("../src/finder");
 const assert = require("assert");
 const _ = require("./utils");
 

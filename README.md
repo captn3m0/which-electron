@@ -1,6 +1,6 @@
 # which-electron ![](https://img.shields.io/badge/Status-Beta-orange) ![npm](https://img.shields.io/npm/v/which-electron) ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/which-electron) ![NPM](https://img.shields.io/npm/l/which-electron)
 
-Try to find out which Electron version is bundled inside an application.
+Find out which Electron version is bundled inside an application.
 
 ## Usage
 
@@ -33,7 +33,7 @@ We attempt multiple pathways:
 4. A lookup table of [hashes from various electron releases](https://github.com/captn3m0/electron-fingerprints/) is used to guess the version. In case of multiple matches, it returns a range of versions.
 5. Get the electron version from the electron binary (WIP)
 
-Note that this can be run against untrusted binaries as it does not _try to run the application_. It has been tested against various file formats: zip/dmg/exe/AppImage/tar.gz etc. It extracts limited files using 7-zip.
+Note that this can be run against untrusted binaries as it does not _try to run the application_. It has been tested against various file formats: zip/dmg/exe/AppImage/tar.gz etc. It extracts limited files using 7-zip to a temporary directory at runtime if needed.
 
 ## Known Issues
 

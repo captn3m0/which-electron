@@ -1,5 +1,5 @@
 const test = require('kuta').test;
-const os = require('../os')
+const os = require('../src/os')
 const assert = require('assert')
 const _ = require('./utils')
 

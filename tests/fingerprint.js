@@ -1,5 +1,5 @@
 const test = require("kuta").test;
-const fp = require("../fingerprint");
+const fp = require("../src/fingerprint");
 const assert = require("assert");
 
 test("it should work with a single fingerprint", () => {
