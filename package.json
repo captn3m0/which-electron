@@ -1,6 +1,6 @@
 {
   "name": "which-electron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Guess which electron version is bundled in an application",
   "main": "src/index.js",
   "bin": {
@@ -30,9 +30,12 @@
     "7zip-bin": "^5.1.1",
     "electron-fingerprints": "^1.0.0",
     "hasha": "^5.2.2",
+    "is-valid-http-url": "^1.0.3",
     "node-7z": "^3.0.0",
+    "nodejs-file-downloader": "^4.7.1",
     "rimraf": "^3.0.2",
-    "semver-sort": "^0.0.4"
+    "semver-sort": "^0.0.4",
+    "which": "^2.0.2"
   },
   "devDependencies": {
     "kuta": "*"

@@ -1,15 +1,59 @@
-const path = require("path");
 const osguess = require("./os");
 const finder = require("./finder");
-const zip = require("./zip");
+const archive = require("./archive");
 const fp = require("./fingerprint");
-const cleanup = require("rimraf");
 const V = require("./version");
 
-// Input file comes from process.argv[2]
-const FILENAME = process.argv[2];
+const isUrl = require("is-valid-http-url");
+const cleanup = require("rimraf");
+const dl = require('nodejs-file-downloader')
 
-console.log(FILENAME);
+const path = require("path");
+const fs = require('fs');
+const os = require('os');
+const process = require('process');
+const TMPDIR = path.join(os.tmpdir(), 'which-electron')
+
+// Input file comes from process.argv[2]
+let FILENAME = process.argv[2];
+
+if (!FILENAME) {
+  console.error("Please pass a valid URL or file as the first argument");
+  process.exit(1)
+}
+
+if(isUrl(FILENAME)) {
+  let url = FILENAME;
+  // Download to temporary directory
+  let tmpdir = fs.mkdtempSync(TMPDIR);
+  let fn = `${tmpdir}/${path.basename(url)}`;
+  const downloader = new dl({
+    url: url,
+    directory: tmpdir,//This folder will be created, if it doesn't exist.
+  })
+  downloader.download().then(()=> {
+    console.log(`Downloaded ${url}`)
+    validateFile(fn)
+  }).catch((e)=> {
+    console.error(`Error while downloading ${url}`)
+    console.error(e)
+    process.exit(1)
+  })
+} else {
+  validateFile(FILENAME)
+}
+
+function validateFile(fn) {
+  fs.access(fn, fs.constants.R_OK, (err) => {
+    if (err) {
+      console.error(`${fn} not readable`)
+      process.exit(1);
+    } else {
+      console.log(fn);
+      whichElectron(fn)
+    }
+  });
+}
 
 function logSupport(version) {
   if (V.isSupported(version)) {
@@ -19,67 +63,71 @@ function logSupport(version) {
   }
 }
 
-zip.listFileContents(FILENAME, (entries) => {
-  let osguess1 = osguess.guessFromFilename(FILENAME);
-  let osguess2 = osguess.guessFromContents(entries);
+let whichElectron = function(filename) {
+  archive.listFileContents(filename, (entries) => {
+    let osguess1 = osguess.guessFromFilename(filename);
+    let osguess2 = osguess.guessFromContents(entries);
 
-  if (osguess1 !== osguess2 && osguess1 && osguess2) {
-    console.log(`Unsure about operating system. Going with ${osguess2}. Other option was ${osguess1}`);
-  }
-  if (osguess1 && !osguess2) {
-    osguess2 = osguess1
-  }
-  let arch = osguess.guessArch(FILENAME, entries);
-  let asar = finder.asar(entries);
-  let binary = finder.binary(entries);
-  let versionFiles = finder.version(entries);
-  let enm = finder.findElectronPackageInsideNodeModules(entries);
-
-  let filesToHash = finder.fingerprintable(entries);
-
-  zip.extractSomeFiles(FILENAME, filesToHash, (dir) => {
-    hashes = fp.getHashes(dir);
-    guesses = fp.guessFromHashes(osguess2, arch, hashes);
-    if (guesses.length == 1) {
-      console.log("Fingerprint: " + guesses[0]);
-      logSupport(guesses[0])
-    } else if (guesses.length > 1) {
-      console.log("Fingerprint: " + V.asText(guesses));
-      logSupport(V.max(guesses))
+    if (osguess1 !== osguess2 && osguess1 && osguess2) {
+      console.log(`Unsure about operating system. Going with ${osguess2}. Other option was ${osguess1}`);
     }
+    if (osguess1 && !osguess2) {
+      osguess2 = osguess1
+    }
+    let arch = osguess.guessArch(filename, entries);
+    let asar = finder.asar(entries);
+    let binary = finder.binary(entries);
+    let versionFiles = finder.version(entries);
+    let enm = finder.findElectronPackageInsideNodeModules(entries);
 
-    cleanup.sync(dir);
+    let filesToHash = finder.fingerprintable(entries);
+
+    archive.extractSomeFiles(filename, filesToHash, TMPDIR, () => {
+      hashes = fp.getHashes(TMPDIR);
+      guesses = fp.guessFromHashes(osguess2, arch, hashes);
+      if (guesses.length == 1) {
+        console.log("Fingerprint: " + guesses[0]);
+        logSupport(guesses[0])
+      } else if (guesses.length > 1) {
+        console.log("Fingerprint: " + V.asText(guesses));
+        logSupport(V.max(guesses))
+      }
+
+      cleanup.sync(TMPDIR);
+    });
+
+    // if (binary) {
+    //   console.log(`${process.argv[2]}:${binary}`);
+    // }
+    if (versionFiles.length > 0) {
+      versionFiles.map((f) => {
+        archive.readFileContents(filename, f, TMPDIR, (c) => {
+          console.log("Found Version file: " + c);
+          logSupport(`${c}`)
+        });
+      });
+    }
+    if (asar.length > 0) {
+      asar.forEach((a) => {
+        console.log("Version Constraint (Unsupported): <v7.0.0");
+      });
+    }
+    if (enm) {
+      enm.forEach((a) => {
+        archive.readFileContents(filename, a, (c) => {
+          try {
+            let packageData = JSON.parse(c);
+            console.log(
+              "Found version in package.json file: " + packageData["version"]
+            );
+            logSupport(`v${packageData["version"]}`)
+          } catch (e) {
+            // TODO: Do something
+          }
+        });
+      });
+    }
   });
+}
 
-  // if (binary) {
-  //   console.log(`${process.argv[2]}:${binary}`);
-  // }
-  if (versionFiles.length > 0) {
-    versionFiles.map((f) => {
-      zip.readFileContents(FILENAME, f, (c) => {
-        console.log("Found Version file: " + c);
-        logSupport(`${c}`)
-      });
-    });
-  }
-  if (asar.length > 0) {
-    asar.forEach((a) => {
-      console.log("Version Constraint (Unsupported): <v7.0.0");
-    });
-  }
-  if (enm) {
-    enm.forEach((a) => {
-      zip.readFileContents(FILENAME, a, (c) => {
-        try {
-          let packageData = JSON.parse(c);
-          console.log(
-            "Found version in package.json file: " + packageData["version"]
-          );
-          logSupport(`v${packageData["version"]}`)
-        } catch (e) {
-          // TODO: Do something
-        }
-      });
-    });
-  }
-});
+

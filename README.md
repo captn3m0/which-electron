@@ -21,6 +21,12 @@ v7.1.10 is currently not supported
 $ which-electron Appium-linux-1.21.0.AppImage
 Fingerprint: v7.2.4-v7.3.3
 v7.3.3 is currently not supported
+
+$ which-electron https://github.com/stoplightio/studio/releases/download/v2.3.0-stable.5931.git-67616e9/stoplight-studio-mac.dmg
+Downloaded https://github.com/stoplightio/studio/releases/download/v2.3.0-stable.5931.git-67616e9/stoplight-studio-mac.dmg
+/tmp/which-electronaN3QGg/stoplight-studio-mac.dmg
+Fingerprint: v11.0.5-v11.1.1
+v11.1.1 is currently not supported
 ```
 
 ## How does it work?
@@ -40,7 +46,7 @@ Note that this can be run against untrusted binaries as it does not _try to run 
 It is known to not work against:
 
 1. Windows setup files (ones with `-setup` in their name)
-2. Breaks with newer AppImage and deb files
+2. On systems without 7-zip installed, it falls back to an older version of 7zip via the 7z-bin package on NPM. Unfortunately, the older version can't extract AppImage files correctly.
 
 ## License
 
