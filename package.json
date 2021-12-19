@@ -7,7 +7,8 @@
     "which-electron": "src/index.js"
   },
   "scripts": {
-    "test": "kuta tests/*.js"
+    "test": "kuta tests/*.js",
+    "release": "npm update && php _scripts/gen_versions.php && git add src/versions.json package-lock.json && git commit -m 'new release' && npm version patch"
   },
   "repository": {
     "type": "git",
