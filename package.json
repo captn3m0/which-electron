@@ -1,6 +1,6 @@
 {
   "name": "which-electron",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Guess which electron version is bundled in an application",
   "main": "src/index.js",
   "bin": {
