@@ -5,13 +5,12 @@ const VERSION_EXCLUDE = ['nightly', 'beta', 'alpha'];
 // till May 2022, after which only 3 major versions will be supported
 const SUPPORTED_MAJOR_VERSIONS = [14, 15, 16, 17];
 
+// Command to fetch the list of versions from upstream
+const FETCH_VERSIONS_COMMAND = "git ls-remote -q --tags https://github.com/electron/electron.git |grep -v '\^{}' |cut -f2 | sed -s 's/refs\/tags\///g' ";
 function get_versions() {
-    `rm -rf electron-src`;
-    `git clone https://github.com/electron/electron.git electron-src`;
-    chdir("electron-src");
 
     $versions = [];
-    foreach(explode("\n", shell_exec("git tag -l")) as $version) {
+    foreach(explode("\n", shell_exec(FETCH_VERSIONS_COMMAND)) as $version) {
         foreach(VERSION_EXCLUDE as $needle) {
             if (stripos($version, $needle) !== false) {
                 continue 2;
@@ -24,9 +23,6 @@ function get_versions() {
 
         $versions[] = $version;
     }
-
-    chdir("..");
-    `rm -rf electron-src`;
 
     return $versions;
 }
