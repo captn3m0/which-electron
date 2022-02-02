@@ -3,7 +3,7 @@
 const VERSION_EXCLUDE = ['nightly', 'beta', 'alpha'];
 // The latest four stable major versions are currently supported
 // till May 2022, after which only 3 major versions will be supported
-const SUPPORTED_MAJOR_VERSIONS = [13, 14, 15, 16];
+const SUPPORTED_MAJOR_VERSIONS = [14, 15, 16, 17];
 
 function get_versions() {
     `rm -rf electron-src`;

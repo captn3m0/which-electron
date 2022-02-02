@@ -29,7 +29,7 @@
   "homepage": "https://github.com/captn3m0/which-electron#readme",
   "dependencies": {
     "7zip-bin": "^5.1.1",
-    "electron-fingerprints": "^2021.12.19",
+    "electron-fingerprints": "*",
     "hasha": "^5.2.2",
     "is-valid-http-url": "^1.0.3",
     "node-7z": "^3.0.0",
