@@ -3,3 +3,4 @@ tests/
 _scripts/
 HACKING.md
 .github
+Makefile
