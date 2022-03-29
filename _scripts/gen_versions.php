@@ -3,7 +3,7 @@
 const VERSION_EXCLUDE = ['nightly', 'beta', 'alpha'];
 // The latest four stable major versions are currently supported
 // till May 2022, after which only 3 major versions will be supported
-const SUPPORTED_MAJOR_VERSIONS = [14, 15, 16, 17];
+const SUPPORTED_MAJOR_VERSIONS = [15, 16, 17, 18];
 
 // Command to fetch the list of versions from upstream
 const FETCH_VERSIONS_COMMAND = "git ls-remote -q --tags https://github.com/electron/electron.git |grep -v '\^{}' |cut -f2 | sed -s 's/refs\/tags\///g' ";
