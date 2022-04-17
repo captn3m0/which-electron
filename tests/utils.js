@@ -1,14 +1,12 @@
-const fs = require("fs");
-entries = {};
+import fs from "fs";
+let entries = {};
 
-module.exports = {
-  getEntries: function(f) {
-    if (entries[f]) {
-      return entries[f];
-    } else {
-      return (entries[f] = JSON.parse(
-        fs.readFileSync(`./tests/fixtures/${f}.json`)
-      ));
-    }
-  },
-};
+export function getEntries(f) {
+  if (entries[f]) {
+    return entries[f];
+  } else {
+    return (entries[f] = JSON.parse(
+      fs.readFileSync(`./tests/fixtures/${f}.json`)
+    ));
+  }
+}
