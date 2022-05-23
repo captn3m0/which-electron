@@ -2,17 +2,20 @@
   "name": "which-electron",
   "version": "1.1.5",
   "description": "Guess which electron version is bundled in an application",
-  "main": "src/index.js",
   "bin": {
     "which-electron": "src/index.js"
   },
   "scripts": {
-    "test": "kuta tests/*.js",
+    "test": "uvu tests",
     "release": "npm update && php _scripts/gen_versions.php && git add src/versions.json package-lock.json && git commit -m 'new release' && npm version patch"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/captn3m0/which-electron.git"
+  },
+  "engines": {
+    "node": " >=14.19.3 || >=16.15.0 || >=18.2.0"
   },
   "keywords": [
     "find",
@@ -28,8 +31,10 @@
   },
   "homepage": "https://github.com/captn3m0/which-electron#readme",
   "dependencies": {
+    "@captn3m0/electron-fingerprints": "*",
     "7zip-bin": "^5.1.1",
-    "electron-fingerprints": "*",
+    "disassembler": "^0.3.0-beta",
+    "elfinfo": "^0.3.0-beta",
     "hasha": "^5.2.2",
     "is-valid-http-url": "^1.0.3",
     "node-7z": "^3.0.0",
@@ -38,7 +43,9 @@
     "semver": "^7.3.5",
     "which": "^2.0.2"
   },
+  "exports": "./src/index.js",
   "devDependencies": {
-    "kuta": "*"
+    "kuta": "*",
+    "uvu": "^0.5.3"
   }
 }

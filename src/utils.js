@@ -1,5 +1,3 @@
-module.exports = {
-  isDirectory: function(a) {
-     return (a? a[0] == "D" : null)
-  },
-};
+export function isDirectory(a) {
+  return a ? a[0] == "D" : null;
+}
