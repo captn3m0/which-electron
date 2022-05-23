@@ -15,7 +15,7 @@
     "url": "git+https://github.com/captn3m0/which-electron.git"
   },
   "engines": {
-    "node": " >=14.13.1 || >=16.0.0"
+    "node": " >=14.19.3 || >=16.15.0 || >=18.2.0"
   },
   "keywords": [
     "find",
@@ -33,7 +33,7 @@
   "dependencies": {
     "7zip-bin": "^5.1.1",
     "disassembler": "^0.3.0-beta",
-    "electron-fingerprints": "*",
+    "@captn3m0/electron-fingerprints": "*",
     "elfinfo": "^0.3.0-beta",
     "hasha": "^5.2.2",
     "is-valid-http-url": "^1.0.3",
