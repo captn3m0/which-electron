@@ -1,4 +1,4 @@
-import DB from "electron-fingerprints";
+import DB from "@captn3m0/electron-fingerprints";
 import fs from "fs";
 import hasha from "hasha";
 import crypto from "crypto";
@@ -26,7 +26,7 @@ export function guessFromHashes(os, arch, hashList) {
   );
   // Set it to the starting list of versions.
   let possibleVersions = allVersions;
-  for (i in hashList) {
+  for (let i in hashList) {
     let hash = hashList[i];
     let versions = lookupTable[hash];
     if (versions) {

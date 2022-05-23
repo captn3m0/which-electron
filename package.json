@@ -31,9 +31,9 @@
   },
   "homepage": "https://github.com/captn3m0/which-electron#readme",
   "dependencies": {
+    "@captn3m0/electron-fingerprints": "*",
     "7zip-bin": "^5.1.1",
     "disassembler": "^0.3.0-beta",
-    "@captn3m0/electron-fingerprints": "*",
     "elfinfo": "^0.3.0-beta",
     "hasha": "^5.2.2",
     "is-valid-http-url": "^1.0.3",

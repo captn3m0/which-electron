@@ -43,7 +43,7 @@ test("it should find the version file", () => {
   );
 });
 
-test("it should find fingerprinteable files", () => {
+test("it should find fingerprintable files", () => {
   assert.equal(
     [
       "Arizona v.1.0.0/Arizona.exe",
@@ -93,7 +93,7 @@ test("it should find fingerprinteable files", () => {
   );
 
   assert.equal(
-    [
+    new Set([
       "resources/app.asar",
       "swiftshader/libvk_swiftshader.so",
       "libGLESv2.so",
@@ -104,8 +104,8 @@ test("it should find fingerprinteable files", () => {
       "swiftshader/libEGL.so",
       "libEGL.so",
       "natives_blob.bin",
-    ],
-    finder.fingerprintable(getEntries("Rambox-0.7.7-linux-x64.zip"))
+    ]),
+    new Set(finder.fingerprintable(getEntries("Rambox-0.7.7-linux-x64.zip")))
   );
 
   assert.equal(
@@ -125,7 +125,7 @@ test("it should find fingerprinteable files", () => {
   );
 
   assert.equal(
-    [
+    new Set([
       "Hyper.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libnode.dylib",
       "Hyper.app/Contents/Resources/app.asar",
       "Hyper.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
@@ -202,12 +202,12 @@ test("it should find fingerprinteable files", () => {
       "Hyper.app/Contents/Frameworks/ReactiveCocoa.framework/Versions/A/Headers/NSText+RACSignalSupport.h",
       "Hyper.app/Contents/Frameworks/ReactiveCocoa.framework/Versions/A/Headers/RACUnit.h",
       "Hyper.app/Contents/Frameworks/ReactiveCocoa.framework/Versions/A/Headers/NSFileHandle+RACSupport.h",
-    ],
-    finder.fingerprintable(getEntries("Hyper-3.0.2-mac.zip"))
+    ]),
+    new Set(finder.fingerprintable(getEntries("Hyper-3.0.2-mac.zip")))
   );
 
   assert.equal(
-    [
+    new Set([
       "Notable.exe",
       "libGLESv2.dll",
       "resources/app.asar",
@@ -219,12 +219,12 @@ test("it should find fingerprinteable files", () => {
       "snapshot_blob.bin",
       "libEGL.dll",
       "natives_blob.bin",
-    ],
-    finder.fingerprintable(getEntries("Notable-1.8.4-win.zip"))
+    ]),
+    new Set(finder.fingerprintable(getEntries("Notable-1.8.4-win.zip")))
   );
 
   assert.equal(
-    [
+    new Set([
       "release-builds/encrypt0r-darwin-x64/encrypt0r.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libGLESv2.dylib",
       "release-builds/encrypt0r-darwin-x64/encrypt0r.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libswiftshader_libGLESv2.dylib",
       "release-builds/encrypt0r-darwin-x64/encrypt0r.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Libraries/libffmpeg.dylib",
@@ -246,8 +246,8 @@ test("it should find fingerprinteable files", () => {
       "release-builds/encrypt0r-darwin-x64/encrypt0r.app/Contents/Frameworks/Electron Framework.framework/Libraries/libvk_swiftshader.dylib",
       "release-builds/encrypt0r-darwin-x64/encrypt0r.app/Contents/Frameworks/Electron Framework.framework/Libraries/libswiftshader_libEGL.dylib",
       "release-builds/encrypt0r-darwin-x64/encrypt0r.app/Contents/Frameworks/Electron Framework.framework/Resources/v8_context_snapshot.x86_64.bin",
-    ],
-    finder.fingerprintable(getEntries("encrypt0r-mac.zip"))
+    ]),
+    new Set(finder.fingerprintable(getEntries("encrypt0r-mac.zip")))
   );
 });
 
