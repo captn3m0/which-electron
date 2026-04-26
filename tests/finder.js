@@ -25,6 +25,22 @@ test("it should find the correct binary file", () => {
   );
 });
 
+test("binary() ignores tiny files with empty extname when a real binary exists", () => {
+  // Regression: directory entries have undefined `size`, so the size-sort
+  // comparator returned NaN and bubbled small files like .DS_Store ahead of
+  // the real framework binary on macOS.
+  const entries = [
+    { attributes: "D....", file: "App.app/Contents/MacOS" },
+    { attributes: ".....", file: ".DS_Store", size: 16388 },
+    { attributes: ".....", file: "App.app/Contents/MacOS/Electron Framework", size: 144000000 },
+    { attributes: "D....", file: "App.app" },
+  ];
+  assert.strictEqual(
+    finder.binary(entries),
+    "App.app/Contents/MacOS/Electron Framework"
+  );
+});
+
 test("it should find the version file", () => {
   assert.deepEqual(
     ["chronobreak-linux-x64/version"],

@@ -21,6 +21,7 @@ function checksumFile(algorithm, path) {
 module.exports = {
   guessFromHashes: function(os, arch, hashList) {
     let lookupTable = DB[`${os}-${arch}`];
+    if (!lookupTable) return [];
     let allPossibleHashes = Object.keys(lookupTable);
     const intersectingHashes = allPossibleHashes.filter((value) =>
       hashList.includes(value)

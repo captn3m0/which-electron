@@ -1,6 +1,6 @@
 {
   "name": "which-electron",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Guess which electron version is bundled in an application",
   "main": "src/index.js",
   "bin": {
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/captn3m0/which-electron#readme",
   "dependencies": {
+    "@vscode/ripgrep": "^1.17.1",
     "7zip-bin": "^5.1.1",
     "electron-fingerprints": "*",
     "hasha": "^5.2.2",

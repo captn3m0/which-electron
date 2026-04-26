@@ -33,11 +33,11 @@ v11.1.1 is currently not supported
 
 We attempt multiple pathways:
 
+1. We use 7z+vscode's ripgrep build to do a binary grep for a electron version regex.
 1. The presence of a `electron.asar` file denotes an electron version `<v7.0.0`, since later releases dropped that file and embedded it in the binary instead.
 2. A `version` text file is sometimes included in the final binary.
 3. The `node_modules/electron/package.json` file is sometimes present.
 4. A lookup table of [hashes from various electron releases](https://github.com/captn3m0/electron-fingerprints/) is used to guess the version. In case of multiple matches, it returns a range of versions.
-5. Get the electron version from the electron binary (WIP)
 
 Note that this can be run against untrusted binaries as it does not _try to run the application_. It has been tested against various file formats: zip/dmg/exe/AppImage/tar.gz etc. It extracts limited files using 7-zip to a temporary directory at runtime if needed.
 

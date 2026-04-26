@@ -15,18 +15,18 @@ module.exports = {
       .map((e) => e.file);
   },
   binary: function(entries) {
-    entries = entries.sort((a, b) => b.size - a.size);
+    // `|| 0` because directory entries have undefined size; without the guard
+    // the comparator returns NaN and bubbles small files (e.g. .DS_Store)
+    // ahead of the actual framework binary on macOS.
+    entries = entries.sort((a, b) => (b.size || 0) - (a.size || 0));
     for (const entry of entries) {
       if (isDirectory(entry.attributes)) {
         continue;
       }
       let ext = path.extname(entry.file);
-      let size = entry.size;
-      // Return the first exe file
       if (ext == ".exe") {
         return entry.file;
       } else if (ext == "") {
-        // or the largest file with no extension
         return entry.file;
       }
     }
